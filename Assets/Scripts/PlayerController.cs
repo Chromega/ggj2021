@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         float ySpeed = charController.velocity.y;
         ySpeed += Physics.gravity.y * Time.deltaTime;
 
-        float yOffset = ySpeed * Time.deltaTime;
+        float yOffset = charController.isGrounded?0:ySpeed * Time.deltaTime;
         charController.Move(new Vector3(speedToUse * horizontalInput * Time.deltaTime, yOffset, speedToUse * verticalInput * Time.deltaTime));
 
         if (horizontalInput != 0 || verticalInput != 0)
