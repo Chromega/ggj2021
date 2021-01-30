@@ -69,7 +69,7 @@ public class EnvironmentInteractor : MonoBehaviour
         {
             interactionInProgress = true;
             currentInteractionGameObj = newInteractiveGameObject.GetComponent<InteractiveEnvironmentObj>();
-            print("INTERACTION STARTED");s
+            print("INTERACTION STARTED");
         }
     }
 
