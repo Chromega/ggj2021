@@ -5,12 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0.25f;
+    public float rakingSpeed = 1.0f;
     public GameObject playerModel;
+
+    RakeController rakeController;
+
+    public static PlayerController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rakeController = GetComponent<RakeController>();
     }
 
     // Update is called once per frame
@@ -18,11 +28,17 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(speed * horizontalInput * Time.deltaTime, 0, speed * verticalInput * Time.deltaTime);
 
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, 
-                                                          Quaternion.LookRotation(
-                                                          new Vector3(speed * verticalInput, 0, -speed * horizontalInput)), 
-                                                          Time.deltaTime * 30f);
+        float speedToUse = (rakeController && rakeController.IsRaking()) ? rakingSpeed : speed;
+
+        transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
+
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation,
+                                                              Quaternion.LookRotation(
+                                                              new Vector3(speed * verticalInput, 0, -speed * horizontalInput)),
+                                                              Time.deltaTime * 30f);
+        }
     }
 }
