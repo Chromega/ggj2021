@@ -18,7 +18,10 @@ public class RakeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (rakeRoot)
+        {
+            rakeRoot.SetActive(false);
+        }
     }
 
     // Update is called once per frame
