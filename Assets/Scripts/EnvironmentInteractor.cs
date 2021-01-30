@@ -51,6 +51,7 @@ public class EnvironmentInteractor : MonoBehaviour
     {
         interactionInProgress = false;
         currentInteractionGameObj = null;
+        GameManager.Instance.IncreaseForestHealth(1);
         print("INTERACTION COMPLETE!");
     }
 
