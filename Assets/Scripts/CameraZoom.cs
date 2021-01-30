@@ -20,6 +20,9 @@ public class CameraZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!VolumeSettings.Instance)
+            return;
+
         float z = transform.localPosition.z + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
         z = Mathf.Clamp(z, maxZoom, minZoom);
         transform.localPosition = new Vector3(0, 0, z);
