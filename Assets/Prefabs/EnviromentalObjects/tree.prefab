@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -6628612583973417306}
   - component: {fileID: 3729047251167369380}
   - component: {fileID: 3989359660228622567}
+  - component: {fileID: 7463039356180396131}
   m_Layer: 0
   m_Name: tree
   m_TagString: interactiveEnvironment
@@ -4821,6 +4822,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!136 &7463039356180396131
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423478586201055051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &2423478586510933472
 GameObject:
   m_ObjectHideFlags: 0
