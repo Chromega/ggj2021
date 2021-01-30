@@ -18,11 +18,15 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(speed * horizontalInput * Time.deltaTime, 0, speed * verticalInput * Time.deltaTime);
+        Vector3 movement = new Vector3(speed * horizontalInput * Time.deltaTime, 0, speed * verticalInput * Time.deltaTime);
+        transform.Translate(movement);
 
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, 
+        if(movement != Vector3.zero)
+        {
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation,
                                                           Quaternion.LookRotation(
-                                                          new Vector3(speed * verticalInput, 0, -speed * horizontalInput)), 
+                                                          new Vector3(speed * verticalInput, 0, -speed * horizontalInput)),
                                                           Time.deltaTime * 30f);
+        }
     }
 }
