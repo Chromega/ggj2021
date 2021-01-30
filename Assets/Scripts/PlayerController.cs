@@ -10,6 +10,13 @@ public class PlayerController : MonoBehaviour
 
     RakeController rakeController;
 
+    public static PlayerController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +29,7 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        float speedToUse = rakeController.IsRaking() ? rakingSpeed : speed;
+        float speedToUse = (rakeController && rakeController.IsRaking()) ? rakingSpeed : speed;
 
         transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
 
