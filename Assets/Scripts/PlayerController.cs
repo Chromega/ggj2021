@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(speed * horizontalInput, 0, speed * verticalInput);
+        transform.Translate(speed * horizontalInput * Time.deltaTime, 0, speed * verticalInput * Time.deltaTime);
 
         playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, 
                                                           Quaternion.LookRotation(
