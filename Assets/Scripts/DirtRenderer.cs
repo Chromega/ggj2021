@@ -31,65 +31,86 @@ public class DirtRenderer : MonoBehaviour
         //myTex.SetPixel(Random.Range(0, 128), Random.Range(0, 128), Color.black);
         Vector2 pos;
         float angle;
-        if (GetNormalizedRakePosition(out pos, out angle))
+        bool draw = GetNormalizedRakePosition(out pos, out angle);
+
+        
+        if (draw)
         {
-            lastRakingPosNormalized = pos;
-            int endPx = Mathf.RoundToInt(size * pos.x);
-            int endPy = Mathf.RoundToInt(size * pos.y);
-
-            int startPx = wasRaking ? lastRakingPos.x : endPx;
-            int startPy = wasRaking ? lastRakingPos.y : endPy;
-
-            //White out old zone
-            for (int offset = (int)(-(numRakePoints - 1) / 2.0f); offset < (int)(-(numRakePoints - 1) / 2.0f + numRakePoints); ++offset)
-            {
-                float offsetMag = offset*rakePixelGap;
-
-                int tineStartPx = (int)(offsetMag * Mathf.Cos(lastRakingAngle + Mathf.PI / 2) + startPx);
-                int tineStartPy = (int)(offsetMag * Mathf.Sin(lastRakingAngle + Mathf.PI / 2) + startPy);
-                int tineEndPx = (int)(offsetMag * Mathf.Cos(angle + Mathf.PI / 2) + endPx);
-                int tineEndPy = (int)(offsetMag * Mathf.Sin(angle + Mathf.PI / 2) + endPy);
-
-                foreach (Vector2Int p in GetPointsOnLine(tineStartPx, tineStartPy, tineEndPx, tineEndPy))
-                {
-                    if (p.x >= 0 && p.x < size && p.y >= 0 && p.y < size)
-                    {
-                        myTex.SetPixel(p.x, p.y, Color.white);
-                    }
-                }
-            }
-
-
-            for (int i = 0; i < numRakePoints; ++i)
-            {
-                float offsetMag = (-(numRakePoints - 1) / 2.0f + i) * rakePixelGap;
-
-                int tineStartPx = (int)(offsetMag * Mathf.Cos(lastRakingAngle+Mathf.PI/2) + startPx);
-                int tineStartPy = (int)(offsetMag * Mathf.Sin(lastRakingAngle + Mathf.PI / 2) + startPy);
-                int tineEndPx = (int)(offsetMag * Mathf.Cos(angle + Mathf.PI / 2) + endPx);
-                int tineEndPy = (int)(offsetMag * Mathf.Sin(angle + Mathf.PI / 2) + endPy);
-
-                foreach (Vector2Int p in GetPointsOnLine(tineStartPx, tineStartPy, tineEndPx, tineEndPy))
-                {
-                    if (p.x >= 0 && p.x < size && p.y >= 0 && p.y < size)
-                    {
-                        myTex.SetPixel(p.x, p.y, Color.black);
-                    }
-                }
-            }
-            
-
-
-            lastRakingPos.x = endPx;
-            lastRakingPos.y = endPy;
-            lastRakingAngle = angle;
-            myTex.Apply();
-            wasRaking = true;
+            StartCoroutine(DelayedDraw(true, pos, angle));
         }
         else
         {
             wasRaking = false;
+            StopAllCoroutines();
         }
+        //StartCoroutine(DelayedDraw(draw, pos, angle));
+
+    }
+
+    IEnumerator DelayedDraw(bool draw, Vector3 pos, float angle)
+    {
+        yield return new WaitForSeconds(.4f);
+
+        if (!draw)
+        {
+            wasRaking = false;
+            yield break;
+        }
+
+
+        lastRakingPosNormalized = pos;
+        int endPx = Mathf.RoundToInt(size * pos.x);
+        int endPy = Mathf.RoundToInt(size * pos.y);
+
+        int startPx = wasRaking ? lastRakingPos.x : endPx;
+        int startPy = wasRaking ? lastRakingPos.y : endPy;
+
+        //White out old zone
+        for (int offset = (int)(-(numRakePoints - 1) / 2.0f); offset < (int)(-(numRakePoints - 1) / 2.0f + numRakePoints); ++offset)
+        {
+            float offsetMag = offset * rakePixelGap;
+
+            int tineStartPx = (int)(offsetMag * Mathf.Cos(lastRakingAngle + Mathf.PI / 2) + startPx);
+            int tineStartPy = (int)(offsetMag * Mathf.Sin(lastRakingAngle + Mathf.PI / 2) + startPy);
+            int tineEndPx = (int)(offsetMag * Mathf.Cos(angle + Mathf.PI / 2) + endPx);
+            int tineEndPy = (int)(offsetMag * Mathf.Sin(angle + Mathf.PI / 2) + endPy);
+
+            foreach (Vector2Int p in GetPointsOnLine(tineStartPx, tineStartPy, tineEndPx, tineEndPy))
+            {
+                if (p.x >= 0 && p.x < size && p.y >= 0 && p.y < size)
+                {
+                    myTex.SetPixel(p.x, p.y, Color.white);
+                }
+            }
+        }
+
+
+        for (int i = 0; i < numRakePoints; ++i)
+        {
+            float offsetMag = (-(numRakePoints - 1) / 2.0f + i) * rakePixelGap;
+
+            int tineStartPx = (int)(offsetMag * Mathf.Cos(lastRakingAngle + Mathf.PI / 2) + startPx);
+            int tineStartPy = (int)(offsetMag * Mathf.Sin(lastRakingAngle + Mathf.PI / 2) + startPy);
+            int tineEndPx = (int)(offsetMag * Mathf.Cos(angle + Mathf.PI / 2) + endPx);
+            int tineEndPy = (int)(offsetMag * Mathf.Sin(angle + Mathf.PI / 2) + endPy);
+
+            foreach (Vector2Int p in GetPointsOnLine(tineStartPx, tineStartPy, tineEndPx, tineEndPy))
+            {
+                if (p.x >= 0 && p.x < size && p.y >= 0 && p.y < size)
+                {
+                    myTex.SetPixel(p.x, p.y, Color.black);
+                }
+            }
+        }
+
+
+
+        lastRakingPos.x = endPx;
+        lastRakingPos.y = endPy;
+        lastRakingAngle = angle;
+        myTex.Apply();
+        wasRaking = true;
+        yield break;
     }
 
     bool GetNormalizedRakePosition(out Vector2 pos, out float angle)
