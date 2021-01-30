@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractiveEnvironmentObj : MonoBehaviour
 {
     public float taskTime;
     private float currentProgress;
     private ParticleSystem myParticleSystem;
+
+    public System.Action onInteractionComplete;
 
 
     // Start is called before the first frame update
@@ -28,7 +31,7 @@ public class InteractiveEnvironmentObj : MonoBehaviour
         {
             InteractionComplete();
         }
-        if (!myParticleSystem.IsAlive())
+        if (myParticleSystem && !myParticleSystem.IsAlive())
         {
             myParticleSystem.Emit(10);
         }
@@ -37,7 +40,20 @@ public class InteractiveEnvironmentObj : MonoBehaviour
     private void InteractionComplete()
     {
         // TODO make real events to happen on complete
-        myParticleSystem.Emit(25); // Doesn't actually work, it dies too soon. Nick: Think about how to fix
-        Destroy(gameObject);
+        if (myParticleSystem)
+        {
+            myParticleSystem.Emit(25); // Doesn't actually work, it dies too soon.
+        }
+
+        if(onInteractionComplete != null)
+        {
+            onInteractionComplete();
+        }
+        ResetInteractionComponent();
+    }
+
+    private void ResetInteractionComponent()
+    {
+        currentProgress = 0;
     }
 }
