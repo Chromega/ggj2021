@@ -16,7 +16,7 @@ public class BunnyMovement : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.Euler(0.0f, angle * Mathf.Rad2Deg, 0.0f);
-        transform.right(transform.forward * bunnySpeed * Time.deltaTime);
+        transform.Translate(transform.right * bunnySpeed * Time.deltaTime);
         /*transform.rotation = Quaternion.Slerp(transform.rotation,
                                                           Quaternion.LookRotation(
                                                           new Vector3(bunnySpeed * x, 0, -bunnySpeed * z)),
