@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     RakeController rakeController;
+    CharacterController charController;
 
     public static PlayerController Instance { get; private set; }
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rakeController = GetComponent<RakeController>();
+        charController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -31,7 +33,13 @@ public class PlayerController : MonoBehaviour
 
         float speedToUse = (rakeController && rakeController.IsRaking()) ? rakingSpeed : speed;
 
-        transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
+        //transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
+
+        float ySpeed = charController.velocity.y;
+        ySpeed += Physics.gravity.y * Time.deltaTime;
+
+        float yOffset = ySpeed * Time.deltaTime;
+        charController.Move(new Vector3(speedToUse * horizontalInput * Time.deltaTime, yOffset, speedToUse * verticalInput * Time.deltaTime));
 
         if (horizontalInput != 0 || verticalInput != 0)
         {
