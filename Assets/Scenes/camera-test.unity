@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1518.7338, g: 1601.446, b: 2052.8423, a: 1}
+  m_IndirectSpecularColor: {r: 1624.7797, g: 1834.5951, b: 2869.524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -885,6 +885,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a76f5c31a1862a459a6e12727931672, type: 3}
+--- !u!1 &936367114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 374152359674184104, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+  m_PrefabInstance: {fileID: 693465839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031122144 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d24f46a0d45184409e56dc222018ad4, type: 3}
@@ -1047,6 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forestImprovementTimeIntervalSec: 10
+  terrain: {fileID: 936367114}
 --- !u!4 &1417041653
 Transform:
   m_ObjectHideFlags: 0
