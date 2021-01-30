@@ -23,7 +23,9 @@ public class TerrainGenerator : MonoBehaviour
         {
             for(int j = 0; j < terrainObjects[i].count; j++)
             {
-                Instantiate(terrainObjects[i].envObj, new Vector3(Random.Range(-mSize.x / 2, mSize.x / 2), 0, Random.Range(-mSize.z / 2, mSize.z / 2)), Quaternion.identity);
+                GameObject newTerrainObject = Instantiate(terrainObjects[i].envObj, new Vector3(Random.Range(-mSize.x / 2, mSize.x / 2), 0, Random.Range(-mSize.z / 2, mSize.z / 2)), Quaternion.identity);// Busts the scale of the objects, gameObject.transform);
+                Vector3 randomRotationVector = new Vector3(0, Random.Range(0, 360), 0);
+                newTerrainObject.transform.Rotate(randomRotationVector);
             }
         }
     }
