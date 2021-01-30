@@ -10,8 +10,8 @@ public class CameraZoom : MonoBehaviour
     /*private float minFov = 30f;
     private float maxFov = 60f;*/
     private float sensitivity = 5f;
-    private float minZoom = -5f;
-    private float maxZoom = -10f;
+    public float minZoom = -5f;
+    public float maxZoom = -10f;
     void Start()
     {
         
