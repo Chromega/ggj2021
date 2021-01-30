@@ -36,7 +36,6 @@ public class DirtRenderer : MonoBehaviour
             lastRakingPosNormalized = pos;
             int endPx = Mathf.RoundToInt(size * pos.x);
             int endPy = Mathf.RoundToInt(size * pos.y);
-            Debug.Log(angle);
 
             int startPx = wasRaking ? lastRakingPos.x : endPx;
             int startPy = wasRaking ? lastRakingPos.y : endPy;
