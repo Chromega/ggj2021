@@ -4,55 +4,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-  private int numWeeds = 0;
-  private int numBunnies = 0;
+  public float forestImprovementTimeIntervalSec = 10f;
+  private float timeToNextForestImprovement;
+  private float forestHealth = 0f;
 
   // Start is called before the first frame update
   void Start()
   {
-
+    timeToNextForestImprovement = forestImprovementTimeIntervalSec;
   }
 
   // Update is called once per frame
   void Update()
   {
-
-  }
-
-  public void OnWeedSpawned()
-  {
-    numWeeds += 1;
-    UpdateBunnies();
-  }
-
-  public void OnWeedCleanedUp()
-  {
-    numWeeds -= 1;
-    UpdateBunnies();
-  }
-
-  void UpdateBunnies()
-  {
-    int desiredNumBunnies = Mathf.Max((12 - numWeeds) / 2, 0);
-    while (numBunnies < desiredNumBunnies)
+    timeToNextForestImprovement = Mathf.Max(timeToNextForestImprovement - Time.deltaTime, 0f);
+    if (timeToNextForestImprovement == 0)
     {
-      SpawnBunny();
-    }
-    while (numBunnies > desiredNumBunnies)
-    {
-      RemoveBunny();
+      // TODO: trigger trees/flowers growing based on forest health value
+      timeToNextForestImprovement = forestImprovementTimeIntervalSec;
     }
   }
 
-  void SpawnBunny()
+  public void IncreaseForestHealth(float inc)
   {
-    // TODO: actually spawn
-    numBunnies += 1;
-  }
-
-  void RemoveBunny()
-  {
-    // TODO: actually remove
-    numBunnies -= 1;
+    forestHealth += inc;
   }
 }
