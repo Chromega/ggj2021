@@ -109,6 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293248decfa22844d8aa87e617e4c2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exclusionZone:
+    serializedVersion: 2
+    x: -10
+    y: -10
+    width: 20
+    height: 20
   terrainObjects:
   - envObj: {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
     count: 300
