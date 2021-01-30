@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.25f;
     public float rakingSpeed = 1.0f;
     public GameObject playerModel;
+    private Vector3 playerVelocity;
 
     RakeController rakeController;
     CharacterController charController;
