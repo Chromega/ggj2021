@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     RakeController rakeController;
     CharacterController charController;
+    EnvironmentInteractor myInteractor;
 
     public static PlayerController Instance { get; private set; }
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         rakeController = GetComponent<RakeController>();
         charController = GetComponent<CharacterController>();
+        myInteractor = GetComponent<EnvironmentInteractor>();
     }
 
     // Update is called once per frame
@@ -47,6 +49,15 @@ public class PlayerController : MonoBehaviour
                                                               Quaternion.LookRotation(
                                                               new Vector3(speed * verticalInput, 0, -speed * horizontalInput)),
                                                               Time.deltaTime * 30f);
+        }
+
+        if (Input.GetKey("space"))
+        {
+            myInteractor.InteractWithNearbySurroudings();
+        }
+        else if(myInteractor.interactionInProgress)
+        {
+            myInteractor.CancelInteraction();
         }
     }
 }

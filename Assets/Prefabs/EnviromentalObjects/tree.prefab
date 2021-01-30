@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3729047251167369380}
   - component: {fileID: 3989359660228622567}
   - component: {fileID: 7463039356180396131}
+  - component: {fileID: -4523840495393687824}
   m_Layer: 0
   m_Name: tree
   m_TagString: interactiveEnvironment
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2423478586201055051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.6443906, y: 0, z: -3.4127774}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 2423478586510933473}
   - {fileID: 2423478586999761568}
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd76fa6c32f37f94d93573d87be3dae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskTime: 1
+  taskTime: 3
 --- !u!198 &3729047251167369380
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4836,6 +4837,20 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &-4523840495393687824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423478586201055051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1325982f5f3bde8448e20d33f5872658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMinScale: 0.75
+  targetMaxScale: 1.5
 --- !u!1 &2423478586510933472
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class EnvironmentInteractor : MonoBehaviour
 {
-    public int interactionTime;
     public float minimumDistance = 2f;
 
-    private bool interactionInProgress;
-    private float currentInteractionTime = 0;
+    public bool interactionInProgress;
     private InteractiveEnvironmentObj currentInteractionGameObj;
 
     // Start is called before the first frame update
@@ -20,17 +18,9 @@ public class EnvironmentInteractor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("space"))
-        {
-            InteractWithNearbySurroudings();
-        }
-        else if (interactionInProgress)
-        {
-            CancelInteraction();
-        }
     }
 
-    void InteractWithNearbySurroudings()
+    public void InteractWithNearbySurroudings()
     {
         if (interactionInProgress)
         {
@@ -64,7 +54,7 @@ public class EnvironmentInteractor : MonoBehaviour
         print("INTERACTION COMPLETE!");
     }
 
-    void CancelInteraction()
+    public void CancelInteraction()
     {
         interactionInProgress = false;
         currentInteractionGameObj = null;
@@ -79,17 +69,17 @@ public class EnvironmentInteractor : MonoBehaviour
         {
             interactionInProgress = true;
             currentInteractionGameObj = newInteractiveGameObject.GetComponent<InteractiveEnvironmentObj>();
-            print("INTERACTION STARTED");
+            print("INTERACTION STARTED");s
         }
     }
 
-    GameObject FindClosestObjectWithTag(string targetTag)
+    public GameObject FindClosestObjectWithTag(string targetTag)
     {
         GameObject[] interactiveObjects = GameObject.FindGameObjectsWithTag(targetTag);
         GameObject closestObj = null;
         for(int i = 0; i < interactiveObjects.Length; i++)
         {
-            if(!closestObj || Vector3.Distance(transform.position, interactiveObjects[i].transform.position) < Vector3.Distance(transform.position, closestObj.transform.position))
+            if((!closestObj || Vector3.Distance(transform.position, interactiveObjects[i].transform.position) < Vector3.Distance(transform.position, closestObj.transform.position)) && interactiveObjects[i].GetComponent<InteractiveEnvironmentObj>())
             {
                 closestObj = interactiveObjects[i];
             }
