@@ -6,6 +6,7 @@ TagManager:
   tags:
   - interactiveEnvironment
   - campfire
+  - sand
   layers:
   - Default
   - TransparentFX

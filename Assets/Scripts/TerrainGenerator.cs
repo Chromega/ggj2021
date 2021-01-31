@@ -26,8 +26,6 @@ public class TerrainGenerator : MonoBehaviour
     float currDelay = 1.0f;
     public float minGoodHealth = 5.0f;
 
-
-
     [System.Serializable]
     public struct HelperSpawns
     {
@@ -43,17 +41,31 @@ public class TerrainGenerator : MonoBehaviour
         Collider mCollider = GetComponent<MeshCollider>();
         Vector3 mSize = mCollider.bounds.size;
         float exclusionRadius = 10f;
-
+        
         for(int i = 0; i < terrainObjects.Length; i++)
         {
             for(int j = 0; j < terrainObjects[i].count; j++)
             {
                 float theta = Random.Range(0, 2 * Mathf.PI);
-                //sqrt(rnd() * (R1 ^ 2 - R2 ^ 2) + R2 ^ 2)
-                //float distance = Mathf.Sqrt(Random.Range(0, 1) * (exclusionRadius * exclusionRadius - totalRadius * totalRadius) + totalRadius * totalRadius);// Random.Range(exclusionRadius, totalRadius) * Mathf.Sqrt(Random.Range(0, 1)); ;
+                float loopCount = 0f;
                 float distance = Mathf.Sqrt(Random.Range(exclusionRadius * exclusionRadius, totalRadius * totalRadius));
+
                 float x = distance * Mathf.Cos(theta);
                 float z = distance * Mathf.Sin(theta);
+
+                while (IntersectsSand(new Vector3(x, 0, z)))
+                {
+                    distance = Mathf.Sqrt(Random.Range(exclusionRadius * exclusionRadius, totalRadius * totalRadius));
+
+                    x = distance * Mathf.Cos(theta);
+                    z = distance * Mathf.Sin(theta);
+                    loopCount++;
+                    if(loopCount > 10f)
+                    {
+                        break;
+                    }
+                }
+                
 
                 GameObject newTerrainObject = Instantiate(terrainObjects[i].envObj, new Vector3(x, 0, z), Quaternion.identity);
                 Vector3 randomRotationVector = new Vector3(0, Random.Range(0, 360), 0);
@@ -74,7 +86,6 @@ public class TerrainGenerator : MonoBehaviour
         currDelay -= Time.deltaTime;
         if(currDelay < 0)
         {
-            print("SPAWN GOOD ITEM");
             currDelay = spawnDelay;// * (70 / GameManager.Instance.forestHealth));
             SpawnGoodItems();
         }
@@ -108,7 +119,6 @@ public class TerrainGenerator : MonoBehaviour
                 if(!failedSpawn)
                 {
                     CritterHelper newCritter = Instantiate(newHelper.helper, new Vector3(x, 0, z), Quaternion.identity);
-                    print("SPAWNING CREATURE " + spawnTracker[i]);
                     spawnTracker[i] = true;
                 }
             }
@@ -148,10 +158,29 @@ public class TerrainGenerator : MonoBehaviour
             float x = distance * Mathf.Cos(theta);
             float z = distance * Mathf.Sin(theta);
 
+            while(IntersectsSand(new Vector3(x, 0, z)))
+            {
+                distance = Mathf.Sqrt(Random.Range(exclusionRadius * exclusionRadius, (exclusionRadius + forestHealthRadius) * (exclusionRadius + forestHealthRadius)));
+                x = distance * Mathf.Cos(theta);
+                z = distance * Mathf.Sin(theta);
+            }
 
             GameObject newTerrainObject = Instantiate(newGoodItem, new Vector3(x, 0, z), Quaternion.identity);// Busts the scale of the objects, gameObject.transform);
             Vector3 randomRotationVector = new Vector3(0, Random.Range(0, 360), 0);
             newTerrainObject.transform.Rotate(randomRotationVector);
         }
+    }
+
+    bool IntersectsSand(Vector3 locationToCheck)
+    {
+        GameObject[] sandpits = GameObject.FindGameObjectsWithTag("sand");
+        foreach(GameObject sandpit in sandpits)
+        {
+            if (Vector3.Distance(locationToCheck, sandpit.transform.position) < 5.0f)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
