@@ -7,12 +7,17 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.25f;
     public float rakingSpeed = 1.0f;
     public GameObject playerModel;
+    public GameObject wagon;
     private Vector3 playerVelocity;
     private Animator animator;
+
+    private Stack<GameObject> inventory;
 
     RakeController rakeController;
     CharacterController charController;
     EnvironmentInteractor myInteractor;
+
+    bool isTryingToInteract = false;
 
     public static PlayerController Instance { get; private set; }
 
@@ -28,6 +33,8 @@ public class PlayerController : MonoBehaviour
         charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         myInteractor = GetComponent<EnvironmentInteractor>();
+        inventory = new Stack<GameObject>();
+        wagon.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,6 +44,8 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         float speedToUse = (rakeController && rakeController.IsRaking()) ? rakingSpeed : speed;
+        if (isTryingToInteract)
+            speedToUse = 0.0f;
 
         //transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
 
@@ -46,7 +55,7 @@ public class PlayerController : MonoBehaviour
         float yOffset = charController.isGrounded?0:ySpeed * Time.deltaTime;
         charController.Move(new Vector3(speedToUse * horizontalInput * Time.deltaTime, yOffset, speedToUse * verticalInput * Time.deltaTime));
 
-        if (horizontalInput != 0 || verticalInput != 0)
+        if ((horizontalInput != 0 || verticalInput != 0) && speedToUse > 0.0f)
         {
             animator.SetBool("moving", true);
 
@@ -62,13 +71,60 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("moving", false);
         }
 
-        if (Input.GetKey("space"))
+        if (Input.GetButton("Interact"))
         {
             myInteractor.InteractWithNearbySurroudings();
+            isTryingToInteract = true;
         }
-        else if(myInteractor.interactionInProgress)
+        else
         {
-            myInteractor.CancelInteraction();
+            if (myInteractor.interactionInProgress)
+                myInteractor.CancelInteraction();
+            isTryingToInteract = false;
+        }
+
+        if (Input.GetButtonDown("Taking"))
+        {
+            GameObject item = myInteractor.TakeNearbyObject();
+            if (item != null)
+            {
+                AddToInventory(item);
+            } else
+            {
+                // no items to take
+                PlaceFromInventory();
+            }
+        }
+    }
+
+    public void AddToInventory(GameObject item)
+    {
+        inventory.Push(item);
+        item.tag = "Untagged";
+        item.transform.SetParent(wagon.transform);
+        item.transform.localPosition = new Vector3(0, 0.25f, 0);
+        wagon.SetActive(true);
+    }
+
+    public void PlaceFromInventory()
+    {
+        if (inventory.Count > 0)
+        {
+            GameObject item = inventory.Pop();
+            float distanceToPlaceObject = 0.5f;
+
+            // Place the object in front of the character. This is SUPER hacky
+            // for some reason the angle is off by 90 degrees lol.
+            Vector3 forwardVector = playerModel.transform.forward;
+            forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
+            Vector3 itemNewLoc = (forwardVector * distanceToPlaceObject) + transform.position;
+            item.transform.position = itemNewLoc;
+            item.transform.SetParent(null);
+            item.tag = "interactiveEnvironment";
+
+            if (inventory.Count == 0) {
+                wagon.SetActive(false);
+            }
         }
     }
 }

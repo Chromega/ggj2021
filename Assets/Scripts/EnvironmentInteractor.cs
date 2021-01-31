@@ -52,14 +52,14 @@ public class EnvironmentInteractor : MonoBehaviour
         interactionInProgress = false;
         currentInteractionGameObj = null;
         GameManager.Instance.IncreaseForestHealth(1);
-        print("INTERACTION COMPLETE!");
+        //print("INTERACTION COMPLETE!");
     }
 
     public void CancelInteraction()
     {
         interactionInProgress = false;
         currentInteractionGameObj = null;
-        print("INTERACTION CANCELLED");
+        //print("INTERACTION CANCELLED");
     }
 
     void StartInteraction()
@@ -70,7 +70,7 @@ public class EnvironmentInteractor : MonoBehaviour
         {
             interactionInProgress = true;
             currentInteractionGameObj = newInteractiveGameObject.GetComponent<InteractiveEnvironmentObj>();
-            print("INTERACTION STARTED");
+            //print("INTERACTION STARTED");
         }
     }
 
@@ -87,5 +87,25 @@ public class EnvironmentInteractor : MonoBehaviour
         }
 
         return closestObj;
+    }
+
+    public GameObject TakeNearbyObject()
+    {
+        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment");
+        if (!newInteractiveGameObject) {
+            Debug.Log("no interactive environment objects");
+            return null;
+        }
+
+        if (Vector3.Distance(transform.position, newInteractiveGameObject.transform.position) < minimumDistance)
+        {
+            Debug.Log("Found nearby interactive environment object "+newInteractiveGameObject);
+            return newInteractiveGameObject;
+        }
+        else
+        {
+            Debug.Log("Found a nearby interactive object, but it was too far away");
+            return null;
+        }
     }
 }

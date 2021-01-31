@@ -27,15 +27,21 @@ public class RakeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Raking"))
+        if (Input.GetAxis("Raking")>.5f)
         {
-            isRaking = true;
-            rakeRoot.SetActive(true);
+            if (!isRaking)
+            {
+                isRaking = true;
+                rakeRoot.SetActive(true);
+            }
         }
-        if (Input.GetButtonUp("Raking"))
+        else
         {
-            isRaking = false;
-            rakeRoot.SetActive(false);
+            if (isRaking)
+            {
+                isRaking = false;
+                rakeRoot.SetActive(false);
+            }
         }
     }
 

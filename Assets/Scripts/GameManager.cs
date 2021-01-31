@@ -5,9 +5,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
   public float forestImprovementTimeIntervalSec = 10f;
-  public GameObject terrain; 
+  public GameObject terrain;
   private float timeToNextForestImprovement;
-  private float forestHealth = 0f;
+  public float forestHealth = 0f;
+  public float forestHealthSlowFactor = 1.5f;
+  public float speed = 5f;
+  private bool growing = false;
+  private float currRadius;
+  private float targetRadius;
+
 
   public static GameManager Instance { get; private set; }
 
@@ -21,6 +27,7 @@ public class GameManager : MonoBehaviour
   {
     timeToNextForestImprovement = forestImprovementTimeIntervalSec;
     terrain.GetComponent<MeshRenderer>().material.SetFloat("_GreenRadius", 1.0f + forestHealth);
+    currRadius = 1.0f + forestHealth;
   }
 
   // Update is called once per frame
@@ -29,15 +36,32 @@ public class GameManager : MonoBehaviour
     timeToNextForestImprovement = Mathf.Max(timeToNextForestImprovement - Time.deltaTime, 0f);
     if (timeToNextForestImprovement == 0)
     {
-      // TODO: trigger trees/flowers growing based on forest health value
       print("Current forest health: " + forestHealth);
+      growing = true;
+      targetRadius = forestHealth / forestHealthSlowFactor;
       timeToNextForestImprovement = forestImprovementTimeIntervalSec;
+    }
+    if (growing)
+    {
+      growRadius();
     }
   }
 
   public void IncreaseForestHealth(float inc)
   {
     forestHealth += inc;
-    terrain.GetComponent<MeshRenderer>().material.SetFloat("_GreenRadius", 1.0f + forestHealth);
+  }
+
+  private void growRadius()
+  {
+    currRadius += Time.deltaTime * speed;
+    if (currRadius < targetRadius)
+    {
+      terrain.GetComponent<MeshRenderer>().material.SetFloat("_GreenRadius", currRadius);
+    }
+    else
+    {
+      growing = false;
+    }
   }
 }

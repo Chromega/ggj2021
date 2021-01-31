@@ -128,3 +128,7 @@ MonoBehaviour:
     count: 100
   - envObj: {fileID: 7597925521341932402, guid: 6e93c5f67ffeb6a4ea4bb4444c466377, type: 3}
     count: 100
+  goodObjects:
+  - {fileID: 7529355924154325813, guid: c4aff9791e38fba45bc8e8657a7f8ea9, type: 3}
+  - {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
+  spawnDelay: 10
