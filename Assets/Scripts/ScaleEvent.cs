@@ -22,6 +22,14 @@ public class ScaleEvent : MonoBehaviour
     void ScaleUp()
     {
         transform.localScale = Vector3.one * Random.Range(targetMinScale, targetMaxScale);
-        Destroy(GetComponent<InteractiveEnvironmentObj>());
+
+        if(gameObject.GetComponent<GrowEvent>() && gameObject.GetComponent<GrowEvent>().growthProcessSteps.Length - 2 >= gameObject.GetComponent<GrowEvent>().currStep)
+        {
+            return;
+        }
+        else
+        {
+            Destroy(GetComponent<InteractiveEnvironmentObj>());
+        }
     }
 }

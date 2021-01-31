@@ -117,9 +117,9 @@ MonoBehaviour:
     height: 20
   terrainObjects:
   - envObj: {fileID: 2869877464891197334, guid: 7c34789756ae565478bf06bf6e9dc597, type: 3}
-    count: 350
+    count: 250
   - envObj: {fileID: 217603021882421636, guid: 33c9c58b49f1944f3b22f7e978b1a22d, type: 3}
-    count: 420
+    count: 300
   - envObj: {fileID: 2845404705782021983, guid: 9a76f5c31a1862a459a6e12727931672, type: 3}
     count: 25
   - envObj: {fileID: 5722976926931795368, guid: ecccb70aea386fa4d9aae8567c9fb446, type: 3}
@@ -128,7 +128,21 @@ MonoBehaviour:
     count: 100
   - envObj: {fileID: 7597925521341932402, guid: 6e93c5f67ffeb6a4ea4bb4444c466377, type: 3}
     count: 100
+  - envObj: {fileID: 2870590425575763348, guid: e652e9ce750ec4f41b21a1bd7eee8c20, type: 3}
+    count: 150
   goodObjects:
-  - {fileID: 7529355924154325813, guid: c4aff9791e38fba45bc8e8657a7f8ea9, type: 3}
-  - {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
+  - obj: {fileID: 7529355924154325813, guid: c4aff9791e38fba45bc8e8657a7f8ea9, type: 3}
+    weight: 10
+  - obj: {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
+    weight: 5
+  - obj: {fileID: 7597925521341932402, guid: 6e93c5f67ffeb6a4ea4bb4444c466377, type: 3}
+    weight: 5
+  - obj: {fileID: 9048770732043686443, guid: 1d5ab0f38fcd0af4a93af7022d383361, type: 3}
+    weight: 2
   spawnDelay: 10
+  minGoodHealth: 5
+  helpers:
+  - helper: {fileID: 729301766, guid: c78e4786cebbc6743ad807808c2aabcd, type: 3}
+    forestHealthThreshold: 10
+  - helper: {fileID: 8601058438026216918, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+    forestHealthThreshold: 20

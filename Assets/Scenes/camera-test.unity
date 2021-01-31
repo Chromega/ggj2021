@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2014.2588, g: 2139.6328, b: 3141.6797, a: 1}
+  m_IndirectSpecularColor: {r: 1628.8418, g: 1479.9358, b: 1693.7177, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 157207114}
   - component: {fileID: 157207113}
   - component: {fileID: 157207115}
+  - component: {fileID: 157207116}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -261,7 +262,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6500
+  m_ColorTemperature: 4842
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -404,6 +405,24 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
+--- !u!114 &157207116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157207112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74659b22046ef407ea6f626c81f8d8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 157207113}
+  dayIntervalSec: 60
+  tempDay: 5000
+  tempNight: 20000
+  yDay: -90
+  yNight: 90
 --- !u!1001 &257566510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -761,29 +780,25 @@ PrefabInstance:
       value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: spawnDelay
-      value: 10
+      propertyPath: terrainObjects.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: helpers.Array.size
-      value: 2
+      propertyPath: terrainObjects.Array.data[0].count
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: helpers.Array.data[0].helper
+      propertyPath: terrainObjects.Array.data[1].count
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: terrainObjects.Array.data[6].count
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: terrainObjects.Array.data[6].envObj
       value: 
-      objectReference: {fileID: 729301766, guid: c78e4786cebbc6743ad807808c2aabcd, type: 3}
-    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: helpers.Array.data[1].helper
-      value: 
-      objectReference: {fileID: 8601058438026216918, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
-    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: helpers.Array.data[0].forestHealthThreshold
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: helpers.Array.data[1].forestHealthThreshold
-      value: 20
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2870590425575763348, guid: e652e9ce750ec4f41b21a1bd7eee8c20, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
 --- !u!1 &719909327
@@ -1101,14 +1116,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1377859866923934949, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
-      propertyPath: simulationSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1394995423939706240, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
-      propertyPath: simulationSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
 --- !u!1 &1417041651
@@ -1144,7 +1151,7 @@ MonoBehaviour:
   forestImprovementTimeIntervalSec: 10
   terrain: {fileID: 936367114}
   forestHealth: 0
-  forestHealthSlowFactor: 1
+  forestHealthSlowFactor: 4
   speed: 0.5
 --- !u!4 &1417041653
 Transform:
