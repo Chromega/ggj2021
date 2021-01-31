@@ -8,11 +8,13 @@ public class EnvironmentInteractor : MonoBehaviour
 
     public bool interactionInProgress;
     private InteractiveEnvironmentObj currentInteractionGameObj;
+    public Transform sourceXfm;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!sourceXfm)
+            sourceXfm = transform;
     }
 
     // Update is called once per frame
@@ -65,7 +67,7 @@ public class EnvironmentInteractor : MonoBehaviour
     void StartInteraction()
     {
 
-        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment");
+        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", true);
         if(Vector3.Distance(transform.position, newInteractiveGameObject.transform.position) < minimumDistance)
         {
             interactionInProgress = true;
@@ -74,14 +76,35 @@ public class EnvironmentInteractor : MonoBehaviour
         }
     }
 
-    public GameObject FindClosestObjectWithTag(string targetTag)
+    public GameObject FindClosestObjectWithTag(string targetTag, bool checkFacing )
     {
         GameObject[] interactiveObjects = GameObject.FindGameObjectsWithTag(targetTag);
         GameObject closestObj = null;
-        for(int i = 0; i < interactiveObjects.Length; i++)
+        float myAngle = Mathf.Atan2(sourceXfm.right.z, sourceXfm.right.x);
+        for (int i = 0; i < interactiveObjects.Length; i++)
         {
-            if((!closestObj || Vector3.Distance(transform.position, interactiveObjects[i].transform.position) < Vector3.Distance(transform.position, closestObj.transform.position)) && interactiveObjects[i].GetComponent<InteractiveEnvironmentObj>())
+            Vector3 vecToObj = sourceXfm.position - interactiveObjects[i].transform.position;
+            if ((!closestObj || Vector3.SqrMagnitude(vecToObj) < Vector3.SqrMagnitude(sourceXfm.position - closestObj.transform.position)) && interactiveObjects[i].GetComponent<InteractiveEnvironmentObj>())
             {
+                if (checkFacing)
+                {
+                    float angle = Mathf.Atan2(vecToObj.z, vecToObj.x);
+
+                    float deltaAngle = angle - myAngle;
+                    while (deltaAngle < -Mathf.PI)
+                    {
+                        deltaAngle += 2*Mathf.PI;
+                    }
+                    while (deltaAngle > Mathf.PI)
+                    {
+                        deltaAngle -= 2*Mathf.PI;
+                    }
+
+                    if (Mathf.Abs(deltaAngle) > Mathf.PI/4) //toss out if not within 90 degree cone (-45,45)
+                    {
+                        continue;
+                    }
+                }
                 closestObj = interactiveObjects[i];
             }
         }
@@ -91,7 +114,7 @@ public class EnvironmentInteractor : MonoBehaviour
 
     public GameObject TakeNearbyObject()
     {
-        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment");
+        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", true);
         if (!newInteractiveGameObject) {
             Debug.Log("no interactive environment objects");
             return null;

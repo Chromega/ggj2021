@@ -56,7 +56,7 @@ public class CritterHelper : MonoBehaviour
 
         if (!closestObject)
         {
-            closestObject = myInteractor.FindClosestObjectWithTag("interactiveEnvironment");
+            closestObject = myInteractor.FindClosestObjectWithTag("interactiveEnvironment", false);
         }
         Vector3 relativePos = closestObject.transform.position - transform.position;
 
