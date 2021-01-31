@@ -5,9 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
   public float forestImprovementTimeIntervalSec = 10f;
-  public GameObject terrain; 
+  public GameObject terrain;
   private float timeToNextForestImprovement;
-  private float forestHealth = 0f;
+  public float forestHealth = 0f;
 
   public static GameManager Instance { get; private set; }
 

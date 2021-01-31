@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     CharacterController charController;
     EnvironmentInteractor myInteractor;
 
+    bool isTryingToInteract = false;
+
     public static PlayerController Instance { get; private set; }
 
     private void Awake()
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         float speedToUse = (rakeController && rakeController.IsRaking()) ? rakingSpeed : speed;
+        if (isTryingToInteract)
+            speedToUse = 0.0f;
 
         //transform.Translate(speedToUse * horizontalInput*Time.deltaTime, 0, speedToUse * verticalInput*Time.deltaTime);
 
@@ -65,15 +69,19 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("moving", false);
         }
 
-        if (Input.GetKey("space"))
+        if (Input.GetButton("Interact"))
         {
             myInteractor.InteractWithNearbySurroudings();
+            isTryingToInteract = true;
         }
-        else if(myInteractor.interactionInProgress)
+        else
         {
-            myInteractor.CancelInteraction();
+            if (myInteractor.interactionInProgress)
+                myInteractor.CancelInteraction();
+            isTryingToInteract = false;
         }
-        else if(Input.GetButtonDown("Taking"))
+
+        if (Input.GetButtonDown("Taking"))
         {
             GameObject item = myInteractor.TakeNearbyObject();
             if (item != null)
