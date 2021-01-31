@@ -89,8 +89,8 @@ public class CritterHelper : MonoBehaviour
                 if (animator)
                     animator.SetBool("interacting", true);
             }
-            if (animator)
-                animator.SetBool("walking", false);
+            //if (animator)
+            //    animator.SetBool("walking", false);
         }
 
         if(currWorkShift <= 0)
