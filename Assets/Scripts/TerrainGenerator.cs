@@ -19,6 +19,15 @@ public class TerrainGenerator : MonoBehaviour
     public float spawnDelay = 10.0f;
     float currDelay = 1.0f;
 
+    [System.Serializable]
+    public struct HelperSpawns
+    {
+        public CritterHelper helper;
+        public float forestHealthThreshold;
+    }
+    public HelperSpawns[] helpers;
+    List<bool> spawnTracker = new List<bool>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +51,12 @@ public class TerrainGenerator : MonoBehaviour
                 newTerrainObject.transform.Rotate(randomRotationVector);
             }
         }
+
+        for (int i = 0; i < helpers.Length; i++)
+        {
+            HelperSpawns newHelper = helpers[i];
+            spawnTracker.Add(false);
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +68,41 @@ public class TerrainGenerator : MonoBehaviour
             print("SPAWN GOOD ITEM");
             currDelay = spawnDelay;// * (70 / GameManager.Instance.forestHealth));
             SpawnGoodItems();
+        }
+
+        for(int i = 0; i < helpers.Length; i++)
+        {
+            HelperSpawns newHelper = helpers[i];
+            if(!spawnTracker[i] && newHelper.forestHealthThreshold < GameManager.Instance.forestHealth)
+            {              
+                // Find good spot to spawn
+                float x = 0;
+                float z = 0;
+                var viewPoint = Camera.main.WorldToViewportPoint(new Vector3(x, 0, z));
+                bool pointOnCamera = true;
+                int loopCount = 0;
+                bool failedSpawn = false;
+
+                while(pointOnCamera)
+                {
+                    x = Random.Range(-50, 50);
+                    z = Random.Range(-50, 50);
+                    pointOnCamera = (viewPoint.x > 0 && viewPoint.x < 1 && viewPoint.z > 0 && viewPoint.z < 1);
+                    loopCount++;
+                    if(loopCount > 10)
+                    {
+                        failedSpawn = true;
+                        print("No valid location for helper found");
+                        break;
+                    }
+                }
+                if(!failedSpawn)
+                {
+                    CritterHelper newCritter = Instantiate(newHelper.helper, new Vector3(x, 0, z), Quaternion.identity);
+                    print("SPAWNING CREATURE " + spawnTracker[i]);
+                    spawnTracker[i] = true;
+                }
+            }
         }
     }
 

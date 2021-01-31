@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1623.1733, g: 1832.652, b: 2865.624, a: 1}
+  m_IndirectSpecularColor: {r: 2014.2588, g: 2139.6328, b: 3141.6797, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -764,6 +764,26 @@ PrefabInstance:
       propertyPath: spawnDelay
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: helpers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: helpers.Array.data[0].helper
+      value: 
+      objectReference: {fileID: 729301766, guid: c78e4786cebbc6743ad807808c2aabcd, type: 3}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: helpers.Array.data[1].helper
+      value: 
+      objectReference: {fileID: 8601058438026216918, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: helpers.Array.data[0].forestHealthThreshold
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+      propertyPath: helpers.Array.data[1].forestHealthThreshold
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
 --- !u!1 &719909327
@@ -1081,6 +1101,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377859866923934949, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394995423939706240, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
 --- !u!1 &1417041651
@@ -1395,3 +1423,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c3f09f66c8e884188dfceec91b30e1, type: 3}
+--- !u!1001 &8601058438952311365
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.483
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216913, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601058438026216916, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+      propertyPath: m_Name
+      value: Deer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
