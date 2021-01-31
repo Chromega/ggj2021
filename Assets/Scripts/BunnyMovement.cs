@@ -15,12 +15,11 @@ public class BunnyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0.0f, angle * Mathf.Rad2Deg, 0.0f);
-        transform.Translate(transform.right * bunnySpeed * Time.deltaTime);
-        /*transform.rotation = Quaternion.Slerp(transform.rotation,
-                                                          Quaternion.LookRotation(
-                                                          new Vector3(bunnySpeed * x, 0, -bunnySpeed * z)),
-                                                          Time.deltaTime * 30f);*/
+        //transform.rotation = Quaternion.Euler(0.0f, angle * Mathf.Rad2Deg, 0.0f);
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                          Quaternion.Euler(0.0f, angle * Mathf.Rad2Deg, 0.0f),
+                                                          Time.deltaTime * 10f);
+        transform.Translate(-transform.right * bunnySpeed * Time.deltaTime, Space.World);
 
     }
 
