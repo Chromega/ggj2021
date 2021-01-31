@@ -12,11 +12,16 @@ public class FireHealth : MonoBehaviour
     public float minForFlames = 5.0f;
     public ParticleSystem smokeParticles;
     public float minForSmoke = 1.0f;
+    public float maxSmokeSize = 3.0f;
     private AudioSource mAudioSource;
 
     public float flareTime = 1.0f;
     private float currFlareLife = 0f;
     private bool flaring;
+
+    public Light camplight;
+    public float maxLightIntensity = 2000000f;
+    private float currLightIntensity = 0f;
 
 
     // Start is called before the first frame update
@@ -25,6 +30,7 @@ public class FireHealth : MonoBehaviour
         mAudioSource = gameObject.GetComponent<AudioSource>();
         mAudioSource.volume = 0;
         flameParticles.gameObject.SetActive(false);
+        camplight.intensity = 0;
     }
 
     // Update is called once per frame
@@ -44,12 +50,14 @@ public class FireHealth : MonoBehaviour
         float currMin = targetedMin * (currentHealth / maxHealth);
         float currMax = targetedMax * (currentHealth / maxHealth);
         float currVol = targetedVolume * (currentHealth / maxHealth);
+        currLightIntensity = maxLightIntensity * (currentHealth / maxHealth);
 
         if (currentHealth > minForFlames)
         {         
             main.startLifetime = new ParticleSystem.MinMaxCurve(currMin, currMax);
             mAudioSource.volume = currVol;
             flameParticles.gameObject.SetActive(true);
+            camplight.intensity = currLightIntensity;
         }
         
         if(flaring)
@@ -70,12 +78,14 @@ public class FireHealth : MonoBehaviour
         {
             main.startLifetime = 0;
             flameParticles.gameObject.SetActive(false);
+            camplight.intensity = 0;
         }
 
         if (currentHealth != lastHealth)
         {
             print("FLARING");
             lastHealth = currentHealth;
+            camplight.intensity = currLightIntensity * 1.25f;
             Flare();
         }
     }
@@ -89,6 +99,11 @@ public class FireHealth : MonoBehaviour
             float targetedMax = 3.0f;
 
             float currMax = targetedMax * (currentHealth / maxHealth);
+            
+            if(currMax > maxSmokeSize)
+            {
+                currMax = maxSmokeSize;
+            }
 
             main.startSize = currMax;
         }

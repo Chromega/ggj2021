@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2014.2196, g: 1721.1191, b: 1848.6077, a: 1}
+  m_IndirectSpecularColor: {r: 2017.4922, g: 1723.7637, b: 1851.7246, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -884,6 +884,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 847319328, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+      propertyPath: camplight
+      value: 
+      objectReference: {fileID: 1591664140}
+    - target: {fileID: 847319328, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+      propertyPath: maxLightIntensity
+      value: 750000
+      objectReference: {fileID: 0}
     - target: {fileID: 1270098424583773775, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
       propertyPath: m_Name
       value: Campfire
@@ -1079,6 +1087,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!108 &1591664140 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1591664140, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+  m_PrefabInstance: {fileID: 1268611539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1696832146
 PrefabInstance:
   m_ObjectHideFlags: 0
