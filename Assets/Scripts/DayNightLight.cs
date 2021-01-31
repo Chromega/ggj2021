@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class DayNightLight : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class DayNightLight : MonoBehaviour
     public int intensityDay = 120000;
     public int intensityNight = 1000;
 
+    private HDAdditionalLightData hdLight;
     private float sinPeriod;
 
     // Start is called before the first frame update
     void Start()
     {
         sinPeriod = 2.0f * Mathf.PI / dayIntervalSec;
+        hdLight = sun.GetComponent<HDAdditionalLightData>();
     }
 
     // Update is called once per frame
@@ -29,7 +32,7 @@ public class DayNightLight : MonoBehaviour
         sun.colorTemperature = temp;
 
         float intensity = (intensityNight - intensityDay) * 1.0f * amplitude + intensityDay;
-        sun.intensity = intensity;
+        hdLight.intensity = intensity;
 
         float yRotation = (yNight - yDay) * 1.0f * amplitude + yDay;
         sun.transform.rotation = Quaternion.Euler(sun.transform.rotation.eulerAngles.x, yRotation, sun.transform.rotation.eulerAngles.z);
