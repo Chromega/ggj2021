@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1518.7395, g: 1601.446, b: 2052.839, a: 1}
+  m_IndirectSpecularColor: {r: 2016.2959, g: 2143.5254, b: 3151.8398, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -753,13 +753,9 @@ PrefabInstance:
       value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: terrainObjects.Array.data[2].envObj
-      value: 
-      objectReference: {fileID: 2845404705782021983, guid: 9a76f5c31a1862a459a6e12727931672, type: 3}
-    - target: {fileID: 374152359674184105, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: terrainObjects.Array.data[3].envObj
-      value: 
-      objectReference: {fileID: 5722976926931795368, guid: ecccb70aea386fa4d9aae8567c9fb446, type: 3}
+      propertyPath: spawnDelay
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
 --- !u!1 &719909327
@@ -1111,6 +1107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forestImprovementTimeIntervalSec: 10
   terrain: {fileID: 936367114}
+  forestHealth: 0
+  forestHealthSlowFactor: 1
+  speed: 0.5
 --- !u!4 &1417041653
 Transform:
   m_ObjectHideFlags: 0
