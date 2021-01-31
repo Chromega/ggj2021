@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd76fa6c32f37f94d93573d87be3dae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskTime: 1
+  taskTime: 0.5
 --- !u!199 &5417680456900568088
 ParticleSystemRenderer:
   serializedVersion: 6
