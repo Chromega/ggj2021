@@ -100,7 +100,9 @@ public class PlayerController : MonoBehaviour
     public void AddToInventory(GameObject item)
     {
         inventory.Push(item);
-        item.SetActive(false);
+        item.tag = "Untagged";
+        item.transform.SetParent(wagon.transform);
+        item.transform.localPosition = new Vector3(0, 0.25f, 0);
         wagon.SetActive(true);
     }
 
@@ -117,9 +119,8 @@ public class PlayerController : MonoBehaviour
             forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
             Vector3 itemNewLoc = (forwardVector * distanceToPlaceObject) + transform.position;
             item.transform.position = itemNewLoc;
-
-            // Re-enable the object
-            item.SetActive(true);
+            item.transform.SetParent(null);
+            item.tag = "interactiveEnvironment";
 
             if (inventory.Count == 0) {
                 wagon.SetActive(false);
