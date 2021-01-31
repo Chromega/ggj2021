@@ -16,12 +16,15 @@ public class CritterHelper : MonoBehaviour
     GameObject closestObject;
     EnvironmentInteractor myInteractor;
 
+    Animator animator;
+
     float angle = 0.0f;
 
     void Start()
     {
         StartCoroutine(ChangeDirection());
         myInteractor = GetComponent<EnvironmentInteractor>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,6 +70,10 @@ public class CritterHelper : MonoBehaviour
         if (myInteractor.minimumDistance < Vector3.Distance(transform.position, closestObject.transform.position))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            if (animator)
+                animator.SetBool("interacting", false);
+            if (animator)
+                animator.SetBool("walking", true);
         }
         else
         {
@@ -74,11 +81,22 @@ public class CritterHelper : MonoBehaviour
             if (!myInteractor.interactionInProgress)
             {
                 closestObject = null;
+                if (animator)
+                    animator.SetBool("interacting", false);
             }
+            else
+            {
+                if (animator)
+                    animator.SetBool("interacting", true);
+            }
+            if (animator)
+                animator.SetBool("walking", false);
         }
 
         if(currWorkShift <= 0)
         {
+            if (animator)
+                animator.SetBool("interacting", false);
             currRestBreak = restTime;
             currState = ActivityState.resting;
             closestObject = null;
@@ -100,6 +118,13 @@ public class CritterHelper : MonoBehaviour
         if (myInteractor.minimumDistance < Vector3.Distance(transform.position, fireplace.transform.position))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            if (animator)
+                animator.SetBool("walking", true);
+        }
+        else
+        {
+            if (animator)
+                animator.SetBool("walking", false);
         }
 
         if (currRestBreak <= 0)
