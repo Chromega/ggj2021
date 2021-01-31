@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd76fa6c32f37f94d93573d87be3dae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskTime: 1
+  taskTime: 0.5
 --- !u!114 &7597925521341932403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +64,8 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 28af35a7b48809440bd9d0f3acbaf1f6, type: 3}
   - {fileID: 919132149155446097, guid: e4dfbcae64bf6284cb9378dfe9debd61, type: 3}
   - {fileID: 919132149155446097, guid: f19c50bbfddcb554bba88ce99d03e1a6, type: 3}
+  currStep: 0
+  currentProcessStep: {fileID: 0}
 --- !u!199 &-467661538532465010
 ParticleSystemRenderer:
   serializedVersion: 6
