@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
   void Start()
   {
     timeToNextForestImprovement = forestImprovementTimeIntervalSec;
+    terrain.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GreenRadius", 1.0f + forestHealth);
   }
 
   // Update is called once per frame
@@ -37,5 +38,6 @@ public class GameManager : MonoBehaviour
   public void IncreaseForestHealth(float inc)
   {
     forestHealth += inc;
+    terrain.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GreenRadius", 1.0f + forestHealth);
   }
 }
