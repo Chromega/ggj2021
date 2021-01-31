@@ -70,5 +70,9 @@ public class PlayerController : MonoBehaviour
         {
             myInteractor.CancelInteraction();
         }
+        else if(Input.GetButtonDown("Taking"))
+        {
+            Debug.Log("F");
+        }
     }
 }
