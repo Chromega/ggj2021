@@ -157,12 +157,19 @@ public class TerrainGenerator : MonoBehaviour
             float distance = Mathf.Sqrt(Random.Range(exclusionRadius * exclusionRadius, (exclusionRadius + forestHealthRadius) * (exclusionRadius + forestHealthRadius)));
             float x = distance * Mathf.Cos(theta);
             float z = distance * Mathf.Sin(theta);
+            float loopCount = 0f;
 
             while(IntersectsSand(new Vector3(x, 0, z)))
             {
                 distance = Mathf.Sqrt(Random.Range(exclusionRadius * exclusionRadius, (exclusionRadius + forestHealthRadius) * (exclusionRadius + forestHealthRadius)));
                 x = distance * Mathf.Cos(theta);
                 z = distance * Mathf.Sin(theta);
+
+                loopCount++;
+                if(loopCount > 10)
+                {
+                    break;
+                }
             }
 
             GameObject newTerrainObject = Instantiate(newGoodItem, new Vector3(x, 0, z), Quaternion.identity);// Busts the scale of the objects, gameObject.transform);
