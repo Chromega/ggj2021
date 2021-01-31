@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 3ea263fb3ca0a4aa6b87cf835b6807cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,8 +116,8 @@ MonoBehaviour:
     width: 20
     height: 20
   terrainObjects:
-  - envObj: {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
-    count: 300
+  - envObj: {fileID: 2869877464891197334, guid: 7c34789756ae565478bf06bf6e9dc597, type: 3}
+    count: 350
   - envObj: {fileID: 217603021882421636, guid: 33c9c58b49f1944f3b22f7e978b1a22d, type: 3}
     count: 420
   - envObj: {fileID: 2845404705782021983, guid: 9a76f5c31a1862a459a6e12727931672, type: 3}

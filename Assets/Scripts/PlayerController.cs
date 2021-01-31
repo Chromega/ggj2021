@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     RakeController rakeController;
     CharacterController charController;
+    EnvironmentInteractor myInteractor;
 
     public static PlayerController Instance { get; private set; }
 
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         rakeController = GetComponent<RakeController>();
         charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        myInteractor = GetComponent<EnvironmentInteractor>();
     }
 
     // Update is called once per frame
@@ -55,9 +57,20 @@ public class PlayerController : MonoBehaviour
                                                               new Vector3(speed * verticalInput, 0, -speed * horizontalInput)),
                                                               Time.deltaTime * 30f);
         }
+<<<<<<< HEAD
         else
         {
             animator.SetBool("moving", false);
+=======
+
+        if (Input.GetKey("space"))
+        {
+            myInteractor.InteractWithNearbySurroudings();
+        }
+        else if(myInteractor.interactionInProgress)
+        {
+            myInteractor.CancelInteraction();
+>>>>>>> 241f87f3cdbec2313498a17c6305e8a6ce8c655d
         }
     }
 }

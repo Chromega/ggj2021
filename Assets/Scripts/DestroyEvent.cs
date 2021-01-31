@@ -8,7 +8,6 @@ public class DestroyEvent : MonoBehaviour
     void Start()
     {
         GetComponent<InteractiveEnvironmentObj>().onInteractionComplete += TimeToDie;
-
     }
 
     void TimeToDie()

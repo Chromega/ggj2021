@@ -5,13 +5,22 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
   public float forestImprovementTimeIntervalSec = 10f;
+  public GameObject terrain; 
   private float timeToNextForestImprovement;
   private float forestHealth = 0f;
+
+  public static GameManager Instance { get; private set; }
+
+  private void Awake()
+  {
+    Instance = this;
+  }
 
   // Start is called before the first frame update
   void Start()
   {
     timeToNextForestImprovement = forestImprovementTimeIntervalSec;
+    terrain.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GreenRadius", 1.0f + forestHealth);
   }
 
   // Update is called once per frame
@@ -21,6 +30,7 @@ public class GameManager : MonoBehaviour
     if (timeToNextForestImprovement == 0)
     {
       // TODO: trigger trees/flowers growing based on forest health value
+      print("Current forest health: " + forestHealth);
       timeToNextForestImprovement = forestImprovementTimeIntervalSec;
     }
   }
@@ -28,5 +38,6 @@ public class GameManager : MonoBehaviour
   public void IncreaseForestHealth(float inc)
   {
     forestHealth += inc;
+    terrain.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GreenRadius", 1.0f + forestHealth);
   }
 }

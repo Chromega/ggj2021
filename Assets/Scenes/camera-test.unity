@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1888.5381, g: 1880.4082, b: 2275.668, a: 1}
+  m_IndirectSpecularColor: {r: 1624.7797, g: 1834.5951, b: 2869.524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -748,10 +748,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 374152359674184087, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9c77d17746dc7274eb289c5fab049a7e, type: 2}
     - target: {fileID: 374152359674184104, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
       propertyPath: m_Name
       value: Terrain
@@ -889,6 +885,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a76f5c31a1862a459a6e12727931672, type: 3}
+--- !u!1 &936367114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 374152359674184104, guid: e3f08a280163eb7418a4026e03fd9e8b, type: 3}
+  m_PrefabInstance: {fileID: 693465839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031122144 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d24f46a0d45184409e56dc222018ad4, type: 3}
@@ -1021,6 +1022,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edab3ea59283759468a0bca287c9a0a4, type: 3}
+--- !u!1 &1417041651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417041653}
+  - component: {fileID: 1417041652}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1417041652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417041651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9730906583b4ea08abe87f19251446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forestImprovementTimeIntervalSec: 10
+  terrain: {fileID: 936367114}
+--- !u!4 &1417041653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417041651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1767800123
 PrefabInstance:
   m_ObjectHideFlags: 0

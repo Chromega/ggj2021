@@ -56,4 +56,9 @@ public class InteractiveEnvironmentObj : MonoBehaviour
     {
         currentProgress = 0;
     }
+
+    private void OnDestroy()
+    {
+        gameObject.tag = "Untagged";
+    }
 }
