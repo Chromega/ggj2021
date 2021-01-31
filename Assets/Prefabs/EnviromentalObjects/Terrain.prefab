@@ -132,3 +132,8 @@ MonoBehaviour:
   - {fileID: 7529355924154325813, guid: c4aff9791e38fba45bc8e8657a7f8ea9, type: 3}
   - {fileID: 2423478586201055051, guid: 4f88f414604e54a43b39d0df4adfc548, type: 3}
   spawnDelay: 10
+  helpers:
+  - helper: {fileID: 729301766, guid: c78e4786cebbc6743ad807808c2aabcd, type: 3}
+    forestHealthThreshold: 10
+  - helper: {fileID: 8601058438026216918, guid: 43ff56bc61e9d3941a8d105105c722c8, type: 3}
+    forestHealthThreshold: 20
