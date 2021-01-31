@@ -51,6 +51,8 @@ public class EnvironmentInteractor : MonoBehaviour
 
     void CompleteInteraction()
     {
+        if (currentInteractionGameObj)
+            currentInteractionGameObj.StopInteraction();
         interactionInProgress = false;
         currentInteractionGameObj = null;
         GameManager.Instance.IncreaseForestHealth(1);

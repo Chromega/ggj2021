@@ -75,12 +75,14 @@ public class PlayerController : MonoBehaviour
         {
             myInteractor.InteractWithNearbySurroudings();
             isTryingToInteract = true;
+            animator.SetBool("interacting", true);
         }
         else
         {
             if (myInteractor.interactionInProgress)
                 myInteractor.CancelInteraction();
             isTryingToInteract = false;
+            animator.SetBool("interacting", false);
         }
 
         if (Input.GetButtonDown("Taking"))

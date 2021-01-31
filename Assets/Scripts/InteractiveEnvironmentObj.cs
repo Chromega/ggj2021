@@ -27,16 +27,16 @@ public class InteractiveEnvironmentObj : MonoBehaviour
     public void AcceptInteractionTime()
     {
         currentProgress += Time.deltaTime;
-        if(currentProgress >= taskTime)
-        {
-            InteractionComplete();
-        }
         if (myParticleSystem)
         {
             ParticleSystem.EmissionModule emitter = myParticleSystem.emission;
             emitter.enabled = true;
             if (!myParticleSystem.isPlaying)
                 myParticleSystem.Play();
+        }
+        if (currentProgress >= taskTime)
+        {
+            InteractionComplete();
         }
     }
 
@@ -51,13 +51,13 @@ public class InteractiveEnvironmentObj : MonoBehaviour
 
     private void InteractionComplete()
     {
-        // TODO make real events to happen on complete
         if (myParticleSystem)
         {
-            myParticleSystem.Emit(25); // Doesn't actually work, it dies too soon.
+            ParticleSystem.EmissionModule emitter = myParticleSystem.emission;
+            emitter.enabled = false;
         }
 
-        if(onInteractionComplete != null)
+        if (onInteractionComplete != null)
         {
             onInteractionComplete();
         }
