@@ -15,9 +15,18 @@ public class TerrainGenerator : MonoBehaviour
     }
     public TerrainEnvironmentObject[] terrainObjects;
 
-    public GameObject[] goodObjects;
+    [System.Serializable]
+    public struct SpawnableGoodObjects
+    {
+        public GameObject obj;
+        public float weight;
+    }
+    public SpawnableGoodObjects[] goodObjects;
     public float spawnDelay = 10.0f;
     float currDelay = 1.0f;
+    public float minGoodHealth = 5.0f;
+
+
 
     [System.Serializable]
     public struct HelperSpawns
@@ -109,10 +118,28 @@ public class TerrainGenerator : MonoBehaviour
     void SpawnGoodItems()
     {
         float spawnCount = GameManager.Instance.forestHealth / 5;
-        for (int i = 0; i < spawnCount && GameManager.Instance.forestHealth > 10.0f; i++)
+        for (int i = 0; i < spawnCount && GameManager.Instance.forestHealth > minGoodHealth; i++)
         {
             float exclusionRadius = 10f;
-            GameObject newGoodItem = goodObjects[Random.Range(0, goodObjects.Length)];
+            GameObject newGoodItem = goodObjects[Random.Range(0, goodObjects.Length)].obj;
+
+            float totalWeight = 0;
+            float currentWeight = 0;
+            for(int j = 0; j < goodObjects.Length; j++)
+            {
+                totalWeight += goodObjects[j].weight;
+            }
+            float randomWeight = Random.Range(0, totalWeight);
+
+            foreach (SpawnableGoodObjects spawnableGoodObject in goodObjects)
+            {
+                currentWeight += spawnableGoodObject.weight;
+                if(randomWeight <= currentWeight)
+                {
+                    newGoodItem = spawnableGoodObject.obj;
+                    break;
+                }
+            }
             float forestHealthRadius = GameManager.Instance.forestHealth - 15;// / 2;
 
             float theta = Random.Range(0, 2 * Mathf.PI);
