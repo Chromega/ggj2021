@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float rakingSpeed = 1.0f;
     public GameObject playerModel;
     private Vector3 playerVelocity;
+    private Animator animator;
 
     RakeController rakeController;
     CharacterController charController;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rakeController = GetComponent<RakeController>();
         charController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,10 +46,18 @@ public class PlayerController : MonoBehaviour
 
         if (horizontalInput != 0 || verticalInput != 0)
         {
+            animator.SetBool("moving", true);
+
+            float xzSpeed = (new Vector2(speedToUse * horizontalInput, speedToUse * verticalInput)).magnitude;
+            animator.SetFloat("walk_speed", xzSpeed*.75f);
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation,
                                                               Quaternion.LookRotation(
                                                               new Vector3(speed * verticalInput, 0, -speed * horizontalInput)),
                                                               Time.deltaTime * 30f);
+        }
+        else
+        {
+            animator.SetBool("moving", false);
         }
     }
 }
