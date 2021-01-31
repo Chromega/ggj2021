@@ -5,8 +5,8 @@ using UnityEngine;
 public class GrowEvent : MonoBehaviour
 {
     public GameObject[] growthProcessSteps;
-    private int currStep = 0;
-    private GameObject currentProcessStep;
+    public int currStep = 0;
+    public GameObject currentProcessStep;
 
     // Start is called before the first frame update
     void Start()
