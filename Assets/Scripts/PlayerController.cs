@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         float yOffset = charController.isGrounded?0:ySpeed * Time.deltaTime;
         charController.Move(new Vector3(speedToUse * horizontalInput * Time.deltaTime, yOffset, speedToUse * verticalInput * Time.deltaTime));
 
-        if (horizontalInput != 0 || verticalInput != 0)
+        if ((horizontalInput != 0 || verticalInput != 0) && speedToUse > 0.0f)
         {
             animator.SetBool("moving", true);
 
