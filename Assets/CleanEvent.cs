@@ -18,12 +18,6 @@ public class CleanEvent : MonoBehaviour
         mRenderer.material = defaultMaterial;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void ChangeMaterial()
     {
         mRenderer.material = postMaterial;

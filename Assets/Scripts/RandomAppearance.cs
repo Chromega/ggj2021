@@ -6,7 +6,7 @@ public class RandomAppearance : MonoBehaviour
 {
     public GameObject[] potentialAppearances;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject myNewAppearance = Instantiate(potentialAppearances[Random.Range(0, potentialAppearances.Length)], gameObject.transform);
     }
