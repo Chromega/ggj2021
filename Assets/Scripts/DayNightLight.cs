@@ -30,7 +30,6 @@ public class DayNightLight : MonoBehaviour
 
         float intensity = (intensityNight - intensityDay) * 1.0f * amplitude + intensityDay;
         sun.intensity = intensity;
-        Debug.Log(intensity);
 
         float yRotation = (yNight - yDay) * 1.0f * amplitude + yDay;
         sun.transform.rotation = Quaternion.Euler(sun.transform.rotation.eulerAngles.x, yRotation, sun.transform.rotation.eulerAngles.z);
