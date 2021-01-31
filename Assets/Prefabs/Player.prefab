@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 314472987}
   - component: {fileID: 2101014590}
   - component: {fileID: 529586325757964942}
-  - component: {fileID: 7924409028906401310}
+  - component: {fileID: 8928429598304433008}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -754,7 +754,7 @@ MonoBehaviour:
   rakingSpeed: 1
   playerModel: {fileID: 5508472077800737869}
   wagon: {fileID: 8477152301026345408}
-  pickupAudio: {fileID: 7924409028906401310}
+  pickupAudio: {fileID: 8300000, guid: de7eec715a5594767817db1823923fb9, type: 3}
 --- !u!114 &7400966918506804129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,7 +821,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &7924409028906401310
+--- !u!82 &8928429598304433008
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -831,7 +831,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: de7eec715a5594767817db1823923fb9, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

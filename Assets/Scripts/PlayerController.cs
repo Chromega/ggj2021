@@ -8,15 +8,16 @@ public class PlayerController : MonoBehaviour
     public float rakingSpeed = 1.0f;
     public GameObject playerModel;
     public GameObject wagon;
+    public AudioClip pickupAudio;
     private Vector3 playerVelocity;
     private Animator animator;
-    public AudioSource pickupAudio;
 
     private Stack<GameObject> inventory;
 
     RakeController rakeController;
     CharacterController charController;
     EnvironmentInteractor myInteractor;
+    AudioSource audioSource;
 
     bool isTryingToInteract = false;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         myInteractor = GetComponent<EnvironmentInteractor>();
+        audioSource = GetComponent<AudioSource>();
         inventory = new Stack<GameObject>();
         wagon.SetActive(false);
     }
@@ -92,7 +94,7 @@ public class PlayerController : MonoBehaviour
             if (item != null)
             {
                 AddToInventory(item);
-                pickupAudio.Play();
+                audioSource.PlayOneShot(pickupAudio, 0.25F);
             } else
             {
                 // no items to take
