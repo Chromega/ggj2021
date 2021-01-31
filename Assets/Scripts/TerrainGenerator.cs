@@ -63,7 +63,7 @@ public class TerrainGenerator : MonoBehaviour
         {
             float exclusionRadius = 10f;
             GameObject newGoodItem = goodObjects[Random.Range(0, goodObjects.Length)];
-            float forestHealthRadius = GameManager.Instance.forestHealth - 5;// / 2;
+            float forestHealthRadius = GameManager.Instance.forestHealth - 15;// / 2;
 
             float theta = Random.Range(0, 2 * Mathf.PI);
             //float distance = Random.Range(exclusionRadius, exclusionRadius + forestHealthRadius);
