@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("moving", false);
         }
 
-        if (Input.GetKey("space"))
+        if (Input.GetButton("Interact"))
         {
             myInteractor.InteractWithNearbySurroudings();
         }
