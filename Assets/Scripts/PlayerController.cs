@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject wagon;
     private Vector3 playerVelocity;
     private Animator animator;
+    public AudioSource pickupAudio;
 
     private Stack<GameObject> inventory;
 
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour
             if (item != null)
             {
                 AddToInventory(item);
+                pickupAudio.Play();
             } else
             {
                 // no items to take
