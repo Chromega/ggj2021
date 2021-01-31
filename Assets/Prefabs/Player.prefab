@@ -799,6 +799,7 @@ MonoBehaviour:
   minimumDistance: 2
   interactionInProgress: 0
   sourceXfm: {fileID: 5132369129814677239}
+  needsToFaceObject: 1
 --- !u!95 &529586325757964942
 Animator:
   serializedVersion: 3
