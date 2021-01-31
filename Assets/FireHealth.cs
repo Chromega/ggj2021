@@ -45,7 +45,7 @@ public class FireHealth : MonoBehaviour
         var main = flameParticles.main;
         float targetedMax = 1.2f;
         float targetedMin = 0.7f;
-        float targetedVolume = 1f;
+        float targetedVolume = 0.75f;
 
         float currMin = targetedMin * (currentHealth / maxHealth);
         float currMax = targetedMax * (currentHealth / maxHealth);
