@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private Animator animator;
 
+    private Stack<GameObject> inventory;
+
     RakeController rakeController;
     CharacterController charController;
     EnvironmentInteractor myInteractor;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         myInteractor = GetComponent<EnvironmentInteractor>();
+        inventory = new Stack<GameObject>();
     }
 
     // Update is called once per frame
@@ -72,7 +75,39 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetButtonDown("Taking"))
         {
-            Debug.Log("F");
+            GameObject item = myInteractor.TakeNearbyObject();
+            if (item != null)
+            {
+                AddToInventory(item);
+            } else
+            {
+                // no items to take
+                PlaceFromInventory();
+            }
+        }
+    }
+
+    public void AddToInventory(GameObject item)
+    {
+        inventory.Push(item);
+        item.SetActive(false);
+    }
+
+    public void PlaceFromInventory()
+    {
+        if (inventory.Count > 0)
+        {
+            GameObject item = inventory.Pop();
+
+            // Place the object in front of the character. This is SUPER hacky
+            // for some reason the angle is off by 90 degrees lol.
+            Vector3 forwardVector = playerModel.transform.forward;
+            forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
+            Vector3 itemNewLoc = (forwardVector * 1.0f) + transform.position;
+            item.transform.position = itemNewLoc;
+
+            // Re-enable the object
+            item.SetActive(true);
         }
     }
 }
