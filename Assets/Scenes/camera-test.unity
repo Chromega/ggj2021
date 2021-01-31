@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1634.6084, g: 1481.8518, b: 1691.185, a: 1}
+  m_IndirectSpecularColor: {r: 1628.8418, g: 1479.9358, b: 1693.7177, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   forestImprovementTimeIntervalSec: 10
   terrain: {fileID: 936367114}
   forestHealth: 0
-  forestHealthSlowFactor: 1
+  forestHealthSlowFactor: 4
   speed: 0.5
 --- !u!4 &1417041653
 Transform:
