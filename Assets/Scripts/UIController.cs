@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
+    public static UIController Instance {get; private set;}
+
 	public CanvasGroup Title;
 	public CanvasGroup Credits;
 	public CanvasGroup Instructions;
@@ -19,6 +21,7 @@ public class UIController : MonoBehaviour {
 
     private void Awake()
     {
+        Instance = this;
     }
 
     IEnumerator Start()

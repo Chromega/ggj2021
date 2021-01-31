@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
   private float currRadius;
   private float targetRadius;
 
+  private bool hasFiredWinSequence = false;
+  private int winThreshold = 100;
+
 
   public static GameManager Instance { get; private set; }
 
@@ -40,12 +43,28 @@ public class GameManager : MonoBehaviour
       growing = true;
       targetRadius = forestHealth / forestHealthSlowFactor;
       timeToNextForestImprovement = forestImprovementTimeIntervalSec;
-    }
+
+      if (!hasFiredWinSequence && forestHealth>=winThreshold)
+            {
+                hasFiredWinSequence = true;
+                StartCoroutine(StartCreditsSequence());
+            }
+        }
     if (growing)
     {
       growRadius();
     }
   }
+
+    IEnumerator StartCreditsSequence()
+    {
+        if (!UIController.Instance)
+            yield break;
+
+        yield return StartCoroutine(UIController.Instance.FadeCredits(true, 1));
+        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(UIController.Instance.FadeCredits(false, 1));
+    }
 
   public void IncreaseForestHealth(float inc)
   {

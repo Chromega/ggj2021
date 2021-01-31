@@ -95,6 +95,7 @@ public class CritterHelper : MonoBehaviour
 
         if(currWorkShift <= 0)
         {
+            myInteractor.CancelInteraction();
             if (animator)
                 animator.SetBool("interacting", false);
             currRestBreak = restTime;
