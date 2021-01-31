@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour {
         AsyncOperation loadScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("camera-test", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         loadScene.completed += LoadScene_completed;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         yield return new WaitUntil(() => { return loadScene.isDone; });
 
