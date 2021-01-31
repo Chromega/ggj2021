@@ -9,6 +9,7 @@ public class EnvironmentInteractor : MonoBehaviour
     public bool interactionInProgress;
     private InteractiveEnvironmentObj currentInteractionGameObj;
     public Transform sourceXfm;
+    public bool needsToFaceObject = false;
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +72,7 @@ public class EnvironmentInteractor : MonoBehaviour
     void StartInteraction()
     {
 
-        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", true);
+        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", needsToFaceObject);
         if(Vector3.Distance(transform.position, newInteractiveGameObject.transform.position) < minimumDistance)
         {
             interactionInProgress = true;
@@ -118,7 +119,7 @@ public class EnvironmentInteractor : MonoBehaviour
 
     public GameObject TakeNearbyObject()
     {
-        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", true);
+        GameObject newInteractiveGameObject = FindClosestObjectWithTag("interactiveEnvironment", needsToFaceObject);
         if (!newInteractiveGameObject) {
             Debug.Log("no interactive environment objects");
             return null;
