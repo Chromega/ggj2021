@@ -93,7 +93,9 @@ public class EnvironmentInteractor : MonoBehaviour
             {
                 if (checkFacing)
                 {
-                    float angle = Mathf.Atan2(vecToObj.z, vecToObj.x);
+                    Vector3 offsetSourcePos = sourceXfm.position + sourceXfm.right * 0.5f;
+                    Vector3 offsetVecToObj = offsetSourcePos - interactiveObjects[i].transform.position;
+                    float angle = Mathf.Atan2(offsetVecToObj.z, offsetVecToObj.x);
 
                     float deltaAngle = angle - myAngle;
                     while (deltaAngle < -Mathf.PI)
@@ -105,7 +107,7 @@ public class EnvironmentInteractor : MonoBehaviour
                         deltaAngle -= 2*Mathf.PI;
                     }
 
-                    if (Mathf.Abs(deltaAngle) > Mathf.PI/4) //toss out if not within 90 degree cone (-45,45)
+                    if (Mathf.Abs(deltaAngle) > Mathf.PI/3) //toss out if not within 90 degree cone (-45,45)
                     {
                         continue;
                     }
