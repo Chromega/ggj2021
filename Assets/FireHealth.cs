@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireHealth : MonoBehaviour
 {
     public float currentHealth = 0;
+    private float lastHealth = 0;
     public float maxHealth = 25;
     public float maxEatDistance = 1.0f;
     public ParticleSystem flameParticles;
@@ -12,6 +13,10 @@ public class FireHealth : MonoBehaviour
     public ParticleSystem smokeParticles;
     public float minForSmoke = 1.0f;
     private AudioSource mAudioSource;
+
+    public float flareTime = 1.0f;
+    private float currFlareLife = 0f;
+    private bool flaring;
 
 
     // Start is called before the first frame update
@@ -32,24 +37,46 @@ public class FireHealth : MonoBehaviour
     void UpdateFire()
     {
         var main = flameParticles.main;
-            
+        float targetedMax = 1.2f;
+        float targetedMin = 0.7f;
+        float targetedVolume = 1f;
+
+        float currMin = targetedMin * (currentHealth / maxHealth);
+        float currMax = targetedMax * (currentHealth / maxHealth);
+        float currVol = targetedVolume * (currentHealth / maxHealth);
+
         if (currentHealth > minForFlames)
-        {
-            float targetedMax = 1.2f;
-            float targetedMin = 0.7f;
-            float targetedVolume = 1f;
-
-            float currMin = targetedMin * (currentHealth / maxHealth);
-            float currMax = targetedMax * (currentHealth / maxHealth);
-            float currVol = targetedVolume * (currentHealth / maxHealth);
-
+        {         
             main.startLifetime = new ParticleSystem.MinMaxCurve(currMin, currMax);
             mAudioSource.volume = currVol;
             flameParticles.gameObject.SetActive(true);
         }
-        else
+        
+        if(flaring)
+        {
+            print("FLARING IN PROGRESS " + currFlareLife);
+            currFlareLife -= Time.deltaTime;
+            //main.startLifetime = new ParticleSystem.MinMaxCurve(currFlareLife, currFlareLife * 2f);// new ParticleSystem.MinMaxCurve(currFlareLife, currFlareLife);
+            main.startLifetime = currFlareLife;// new ParticleSystem.MinMaxCurve(currFlareLife, currFlareLife * 2f);
+            flameParticles.gameObject.SetActive(true);
+            mAudioSource.volume = currVol + currFlareLife;
+
+            if (currFlareLife <= 0)
+            {
+                flaring = false;
+            }
+        }
+        else if (currentHealth < minForFlames)
         {
             main.startLifetime = 0;
+            flameParticles.gameObject.SetActive(false);
+        }
+
+        if (currentHealth != lastHealth)
+        {
+            print("FLARING");
+            lastHealth = currentHealth;
+            Flare();
         }
     }
 
@@ -69,6 +96,17 @@ public class FireHealth : MonoBehaviour
         {
             main.startSize = 0.1f;
         }
+        
+    }
+
+    void Flare()
+    {
+        var main = flameParticles.main;
+        currFlareLife = flareTime;
+        flaring = true;
+        mAudioSource.volume = flareTime;
+        flameParticles.gameObject.SetActive(true);
+        main.startLifetime = new ParticleSystem.MinMaxCurve(currFlareLife, currFlareLife * 2f);
     }
 
 }
