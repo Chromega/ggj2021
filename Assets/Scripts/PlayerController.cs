@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.25f;
     public float rakingSpeed = 1.0f;
     public GameObject playerModel;
+    public GameObject wagon;
     private Vector3 playerVelocity;
     private Animator animator;
 
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         myInteractor = GetComponent<EnvironmentInteractor>();
         inventory = new Stack<GameObject>();
+        wagon.SetActive(false);
     }
 
     // Update is called once per frame
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         inventory.Push(item);
         item.SetActive(false);
+        wagon.SetActive(true);
     }
 
     public void PlaceFromInventory()
@@ -117,6 +120,10 @@ public class PlayerController : MonoBehaviour
 
             // Re-enable the object
             item.SetActive(true);
+
+            if (inventory.Count == 0) {
+                wagon.SetActive(false);
+            }
         }
     }
 }
