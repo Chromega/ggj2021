@@ -106,12 +106,13 @@ public class PlayerController : MonoBehaviour
         if (inventory.Count > 0)
         {
             GameObject item = inventory.Pop();
+            float distanceToPlaceObject = 0.5f;
 
             // Place the object in front of the character. This is SUPER hacky
             // for some reason the angle is off by 90 degrees lol.
             Vector3 forwardVector = playerModel.transform.forward;
             forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
-            Vector3 itemNewLoc = (forwardVector * 1.0f) + transform.position;
+            Vector3 itemNewLoc = (forwardVector * distanceToPlaceObject) + transform.position;
             item.transform.position = itemNewLoc;
 
             // Re-enable the object
