@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (inventory.Count > 0)
         {
             GameObject item = inventory.Pop();
-            float distanceToPlaceObject = 0.5f;
+            float distanceToPlaceObject = 0.75f;
 
 
             
