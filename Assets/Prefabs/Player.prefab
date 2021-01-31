@@ -798,6 +798,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumDistance: 2
   interactionInProgress: 0
+  sourceXfm: {fileID: 5132369129814677239}
+  needsToFaceObject: 1
 --- !u!95 &529586325757964942
 Animator:
   serializedVersion: 3
@@ -1269,14 +1271,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ee0ce7544905f4aba8381f208a5261, type: 3}
---- !u!4 &543450652225319925 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68ee0ce7544905f4aba8381f208a5261, type: 3}
-  m_PrefabInstance: {fileID: 1483035678}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &919132148490332495 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 68ee0ce7544905f4aba8381f208a5261, type: 3}
+  m_PrefabInstance: {fileID: 1483035678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &543450652225319925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68ee0ce7544905f4aba8381f208a5261, type: 3}
   m_PrefabInstance: {fileID: 1483035678}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8747552656849026193

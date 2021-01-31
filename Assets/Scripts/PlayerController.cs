@@ -75,12 +75,14 @@ public class PlayerController : MonoBehaviour
         {
             myInteractor.InteractWithNearbySurroudings();
             isTryingToInteract = true;
+            animator.SetBool("interacting", true);
         }
         else
         {
             if (myInteractor.interactionInProgress)
                 myInteractor.CancelInteraction();
             isTryingToInteract = false;
+            animator.SetBool("interacting", false);
         }
 
         if (Input.GetButtonDown("Taking"))
@@ -113,18 +115,33 @@ public class PlayerController : MonoBehaviour
             GameObject item = inventory.Pop();
             float distanceToPlaceObject = 0.5f;
 
-            // Place the object in front of the character. This is SUPER hacky
-            // for some reason the angle is off by 90 degrees lol.
-            Vector3 forwardVector = playerModel.transform.forward;
-            forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
-            Vector3 itemNewLoc = (forwardVector * distanceToPlaceObject) + transform.position;
-            item.transform.position = itemNewLoc;
-            item.transform.SetParent(null);
-            item.tag = "interactiveEnvironment";
+
+            
+
+            GameObject campfire = GameObject.FindGameObjectWithTag("campfire");
+            FireHealth campfireHealth = campfire.GetComponent<FireHealth>();
+            float campfireDistance = Vector3.Distance(gameObject.transform.position, campfire.transform.position);
+            if (campfireDistance < campfireHealth.maxEatDistance)
+            {
+                Destroy(item);
+                campfireHealth.currentHealth++;
+            }
+            else
+            {
+                // Place the object in front of the character. This is SUPER hacky
+                // for some reason the angle is off by 90 degrees lol.
+                Vector3 forwardVector = playerModel.transform.forward;
+                forwardVector = Quaternion.Euler(0, -90, 0) * forwardVector;
+                Vector3 itemNewLoc = (forwardVector * distanceToPlaceObject) + transform.position;
+                item.transform.position = itemNewLoc;
+                item.transform.SetParent(null);
+                item.tag = "interactiveEnvironment";
+            }
+
 
             if (inventory.Count == 0) {
                 wagon.SetActive(false);
-            }
+            }           
         }
     }
 }

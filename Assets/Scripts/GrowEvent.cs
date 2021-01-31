@@ -31,6 +31,7 @@ public class GrowEvent : MonoBehaviour
         }
         else
         {
+            GetComponent<InteractiveEnvironmentObj>().StopInteraction();
             // The process is complete, it's no longer interactive
             Destroy(GetComponent<InteractiveEnvironmentObj>());
         }
