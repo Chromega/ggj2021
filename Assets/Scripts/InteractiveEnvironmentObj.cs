@@ -31,9 +31,21 @@ public class InteractiveEnvironmentObj : MonoBehaviour
         {
             InteractionComplete();
         }
-        if (myParticleSystem && !myParticleSystem.IsAlive())
+        if (myParticleSystem)
         {
-            myParticleSystem.Emit(10);
+            ParticleSystem.EmissionModule emitter = myParticleSystem.emission;
+            emitter.enabled = true;
+            if (!myParticleSystem.isPlaying)
+                myParticleSystem.Play();
+        }
+    }
+
+    public void StopInteraction()
+    {
+        if (myParticleSystem)
+        {
+            ParticleSystem.EmissionModule emitter = myParticleSystem.emission;
+            emitter.enabled = false;
         }
     }
 
