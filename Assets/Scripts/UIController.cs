@@ -14,59 +14,80 @@ public class UIController : MonoBehaviour {
 	bool space = false;
 	bool shift = false;
 
-	public void Update()
+    bool instructionsReady = false;
+    public Camera cam;
+
+    private void Awake()
+    {
+    }
+
+    IEnumerator Start()
+    {
+        AsyncOperation loadScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("camera-test", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        loadScene.completed += LoadScene_completed;
+
+        yield return new WaitForSeconds(1f);
+
+        yield return new WaitUntil(() => { return loadScene.isDone; });
+
+        yield return StartCoroutine(FadeTitle(false, 1f));
+        yield return StartCoroutine(FadeInstructions(true, 1f));
+        instructionsReady = true;
+    }
+
+    private void LoadScene_completed(AsyncOperation obj)
+    {
+        cam.gameObject.SetActive(false);
+    }
+
+    public void Update()
 	{
-
-		StartCoroutine(FadeTitle(false,.003f));
-		StartCoroutine(FadeInstructions(true,.05f));
-
+        if (!instructionsReady)
+            return;
 
 		// Call this when you want credits to show
 		// StartCoroutine(FadeCredits(true,.002f));
 
-		if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
+		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical")!=0) {
 			keyNum ++;
 		}
 
-		if (keyNum == 3) {
-			RawImage image = Instructions.transform.Find("01").GetComponent<RawImage>();
-			image.color = new Color(1,1,1,0);
+		if (keyNum == 3)
+        {
+            Instructions.transform.Find("01").gameObject.SetActive(false);
 
-			Instructions.transform.Find("02").gameObject.SetActive(true);
+            Instructions.transform.Find("02").gameObject.SetActive(true);
 		}
 
-		if (Input.GetAxis("Mouse ScrollWheel") != 0 && keyNum > 2) {
-			RawImage image = Instructions.transform.Find("02").GetComponent<RawImage>();
-			image.color = new Color(1,1,1,0);
-			Instructions.transform.Find("03").gameObject.SetActive(true);
+		if (Input.GetAxis("Mouse ScrollWheel") != 0 && keyNum > 2 && !mouseWheel)
+        {
+            Instructions.transform.Find("02").gameObject.SetActive(false);
+            Instructions.transform.Find("03").gameObject.SetActive(true);
 			mouseWheel = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.Space) && mouseWheel) {
+		if (Input.GetButtonUp("Interact") && mouseWheel && !space) {
 
-			RawImage image = Instructions.transform.Find("03").GetComponent<RawImage>();
-			image.color = new Color(1,1,1,0);
-			Instructions.transform.Find("04").gameObject.SetActive(true);
+            Instructions.transform.Find("03").gameObject.SetActive(false);
+            Instructions.transform.Find("04").gameObject.SetActive(true);
 			space = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift) && space) {
-			RawImage image = Instructions.transform.Find("04").GetComponent<RawImage>();
-			image.color = new Color(1,1,1,0);
-			Instructions.transform.Find("05").gameObject.SetActive(true);
+		if (Input.GetAxis("Raking")>.5f && space && !shift)
+        {
+            Instructions.transform.Find("04").gameObject.SetActive(false);
+            Instructions.transform.Find("05").gameObject.SetActive(true);
 			shift = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.F) && shift) {
-			RawImage image = Instructions.transform.Find("05").GetComponent<RawImage>();
-			image.color = new Color(1,1,1,0);
-		}
+		if (Input.GetButtonUp("Taking") && shift)
+        {
+            Instructions.transform.Find("05").gameObject.SetActive(false);
+        }
 	}
 
 	public IEnumerator FadeTitle(bool fadeToBlack = false, float fadeSpeed = .3f)
 	{
-
-		yield return new WaitForSeconds(3);
 
 		if (fadeToBlack)
 		{
@@ -107,8 +128,6 @@ public class UIController : MonoBehaviour {
 
 	public IEnumerator FadeInstructions(bool fadeToBlack = false, float fadeSpeed = .3f)
 	{
-
-		yield return new WaitForSeconds(7);
 
 		if (fadeToBlack)
 		{
